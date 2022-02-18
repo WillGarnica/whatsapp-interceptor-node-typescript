@@ -5,6 +5,10 @@ import { persistirChat } from "../persistencia/persistirChats";
 
 export async function enviarMsjWhatsapp(msj: MessageFromChatbootDto, sock: any) {
     try {
+        if (!msj || !msj.recipient_id) {
+            console.log("mensaje invalido para ser enviado", msj);
+            return;
+        }
         let contactNumber = msj.recipient_id.split(":")[0];
         contactNumber = removerFormato(contactNumber);
 

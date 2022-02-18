@@ -16,6 +16,7 @@ const sockWhatsapp = connectToWhatsApp();
 
 // pendiente separar funcionalidades
 app.post('/whatsapp/chat', (request, response) => {
+    console.log("objeto request.body: ", request.body)
     const messageFromChatbootDto: MessageFromChatbootDto = request.body;
     enviarMsjWhatsapp(messageFromChatbootDto, sockWhatsapp);
     response.send("Successful");

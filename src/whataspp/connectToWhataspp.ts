@@ -1,6 +1,7 @@
 import makeWASocket, { DisconnectReason, useSingleFileAuthState } from '@adiwajshing/baileys';
 import { Boom } from '@hapi/boom';
 import { listenEvents } from './listenEvents';
+import qr from "qr-image";
 
 export function connectToWhatsApp() {
     console.log("inicia connectToWhatsApp");
@@ -13,6 +14,13 @@ export function connectToWhatsApp() {
     });
     sock.ev.on('creds.update', saveState);
     sock.ev.on('connection.update', (update) => {
+
+        /* si existe un qr se actualiza la imagen qr-code.svg*/
+        if (update && update.qr) {
+            let qr_svg = qr.image(update.qr, { type: 'svg', margin: 4 });
+            qr_svg.pipe(require('fs').createWriteStream('./src/resources/qr-code.svg'));
+        }
+
         console.log("Se actualizo la coneccion");
         const { connection, lastDisconnect } = update
         if (connection === 'close') {

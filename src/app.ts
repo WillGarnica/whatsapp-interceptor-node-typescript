@@ -3,6 +3,7 @@ import * as bodyParser from 'body-parser';
 import { enviarMsjWhatsapp } from './whataspp/enviarMensajeWhatsapp';
 import { MessageFromChatbootDto } from './DTOs/messageFromChatbootDto';
 import { connectToWhatsApp } from './whataspp/connectToWhataspp';
+import fs from 'fs';
 require('dotenv').config();
 
 const app = express();
@@ -20,6 +21,13 @@ app.post('/whatsapp/chat', (request, response) => {
     const messageFromChatbootDto: MessageFromChatbootDto = request.body;
     enviarMsjWhatsapp(messageFromChatbootDto, sockWhatsapp);
     response.send("Successful");
+});
+
+
+// pendiente separar funcionalidades
+app.get('/whatsapp/qr', (request, response) => {
+    response.writeHead(200, { 'content-type': 'image/svg+xml' });
+    fs.createReadStream(`./src/resources/qr-code.svg`).pipe(response);
 });
 
 app.listen(3000, () => {

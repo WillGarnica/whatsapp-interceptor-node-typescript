@@ -3,3 +3,4 @@ auth_info_multi.json
 package-lock.json
 dist/*
 *qr-code.svg
+*.tar

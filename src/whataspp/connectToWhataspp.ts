@@ -10,7 +10,7 @@ export function connectToWhatsApp() {
         // can provide additional config here
         printQRInTerminal: true,
         auth: state,
-        version: [2, 2204, 13] // solucion error 405 https://github.com/adiwajshing/Baileys/issues/1246
+        version: [2, 2206, 5] // solucion error 405 https://github.com/adiwajshing/Baileys/issues/1246
     });
     sock.ev.on('creds.update', saveState);
     sock.ev.on('connection.update', (update) => {
@@ -34,9 +34,7 @@ export function connectToWhatsApp() {
         } else if (connection === 'open') {
             console.log('opened connection')
         }
-
-        listenEvents(sock);
     });
-
+    listenEvents(sock);
     return sock;
 }
